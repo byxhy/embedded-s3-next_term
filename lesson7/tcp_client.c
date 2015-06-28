@@ -1,16 +1,16 @@
 /*
  ********************************************************************************
- *      Copyright (C), 2015-2115, Xhy Tech. Stu.   
+ *      Copyright (C), 2015-2115, Xhy Tech. Stu.
  *
- *      FileName   : tcp_client.c
+ *      FileName   : tcp_client.c
  *
- *      Author     : X h y       
+ *      Author     : X h y
  *
- *      Version    : 2.0       
- *   
- *      Date       : 05-13-2015  
+ *      Version    : 2.0
  *
- *      Description:     
+ *      Date       : 05-13-2015
+ *
+ *      Description:
  ********************************************************************************
  */
  
@@ -28,7 +28,8 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-#define portnum 1234
+#define PORTNUM 1234
+#define MSG_SIZE 128
 
 /**
  * \brief main entry
@@ -37,16 +38,17 @@
 int main(int argc, char *argv[])
 {
     if (2 != argc) {
-        printf("Usage : ./tcp_client 192.168.*.*\n");
+        printf("Usage: %s server_ip\n", argv[0]);
+        exit(1);
     }
     
     int sockfd;
 
     struct sockaddr_in server_addr;
 
-    char buffer[128];
+    char buffer[MSG_SIZE];
 
-    char runing = 1;
+    char running = 1;
     
     /* create socket */
     sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -60,7 +62,7 @@ int main(int argc, char *argv[])
     /* init server address */
     bzero(&server_addr, sizeof(struct sockaddr_in));
     server_addr.sin_family      = AF_INET;
-    server_addr.sin_port        = htons(portnum);
+    server_addr.sin_port        = htons(PORTNUM);
     server_addr.sin_addr.s_addr = inet_addr(argv[1]);
 
     /* connect the server */
@@ -71,15 +73,17 @@ int main(int argc, char *argv[])
         exit(1);
     }
 
-    while (runing) {
+    while (running) {
         /* send data to server */
         printf("\nPlease input string: ");
         fgets(buffer, 128, stdin);
         send(sockfd, buffer, strlen(buffer), 0);
 
         if (0 == strncmp(buffer, "end", 3)) {
-            runing = 0;
+            running = 0;
             printf("\nClient stop !\n");
+        } else {
+            bzero(buffer, MSG_SIZE);
         }   
     }
  
