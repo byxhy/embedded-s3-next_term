@@ -1,16 +1,16 @@
 /*
  ********************************************************************************
- *      Copyright (C), 2015-2115, Xhy Tech. Stu.   
+ *      Copyright (C), 2015-2115, Xhy Tech. Stu.
  *
- *      FileName   : sync.c
+ *      FileName   : sync.c
  *
- *      Author     : X h y       
+ *      Author     : X h y
  *
- *      Version    : 2.0       
- *   
- *      Date       : 05-12-2015  
+ *      Version    : 2.0
  *
- *      Description:     
+ *      Date       : 05-12-2015
+ *
+ *      Description:
  ********************************************************************************
  */
  
